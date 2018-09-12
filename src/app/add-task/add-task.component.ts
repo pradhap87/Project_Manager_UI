@@ -35,6 +35,8 @@ export class AddTaskComponent implements OnInit {
         this.dateValidation = true;
       this._service.Add_Task(this.Parent_ID, this.Project_ID,this.taskDescription, this.startDate, this.endDate, this.taskPriority, this.Status)
       .subscribe(p => this.responseData = p);
+         this._service.Get_Projects().subscribe(p => this.projectData = p);
+    this._service.Get_ParentTask().subscribe(p => this.parentTaskData = p);  
       }
       else{
         this.dateValidation = false;
@@ -51,6 +53,8 @@ export class AddTaskComponent implements OnInit {
       this.validation=true;   
       this._service.Add_Task(this.Parent_ID, this.Project_ID,this.taskDescription, this.startDate, this.endDate, this.taskPriority, this.Status)
       .subscribe(p => this.responseData = p);
+      this._service.Get_Projects().subscribe(p => this.projectData = p);
+      this._service.Get_ParentTask().subscribe(p => this.parentTaskData = p);  
     }
 
   }

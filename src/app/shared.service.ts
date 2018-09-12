@@ -9,7 +9,7 @@ import { Headers, RequestOptions, RequestMethod } from '@angular/http';
 })
 export class SharedService {
 
-  //Angular UI is access Web API deployed in IIS
+  //Angular UI is accessing Web API deployed in IIS
   ProjectManagerBaseUrl: string = 'http://localhost/ProjectManager.WebAPI/api/';
   jsonData: JSON;
   First_Name: String;
