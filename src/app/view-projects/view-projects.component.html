@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">View Projects</h1>
+  </div>
+  <!-- /.col-lg-12 -->
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel" *ngIf="jsonData">
+
+      <div id="ProjectsTable" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+        <div class="row">
+          <div class="col-sm-12">
+
+            <div class="table-responsive shadow">
+              <table datatable class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Project Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Priority</th>
+                    <th>Manager</th>
+                    <th>#</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let project of jsonData">
+                    <td>{{project.Project1}}</td>
+                    <td>{{project.Start_Date |date:'mediumDate'}}</td>
+                    <td>{{project.End_Date |date:'mediumDate'}}</td>
+                    <td>{{project.Priority}}</td>
+                    <td>
+                      <div *ngFor="let item of userData">
+                        <div *ngIf="project.Manager_Id == item.User_ID">
+                          {{item.First_Name}} {{item.Last_Name}}
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <button id="btnEdit" type="submit" class="btn btn-default" [routerLink]="['/editproject']"
+                        [queryParams]="{ProjectId: project.Project_ID}"><i class="text-primary fa fa-edit"></i> Edit</button>
+                      |
+                      <button id="btnDelete" type="submit" class="btn btn-default" [routerLink]="['/deleteproject']"
+                        [queryParams]="{ProjectId: project.Project_ID}"><i class="text-danger fa fa-archive"></i>
+                        Delete Project</button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="!jsonData">
+  <div class="alert alert-info alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> Please wait Loading the
+    Projects information
+  </div>
+  <div class="alert alert-info alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> If it's taking long time
+    then ther is no Project Avalable in the system.
+  </div>
+</div>

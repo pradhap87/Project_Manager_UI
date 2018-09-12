@@ -1,0 +1,61 @@
+<div class="row">
+    <h1 class="page-header">Delete Project</h1>  
+  </div>
+  <div class="row" *ngIf ="!jsonData">
+      <div class="alert alert-danger alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> Please wait Loading the Project Details
+        </div>
+  </div>
+  <div class="row" *ngIf="jsonData">
+    <div class="col-lg-5">
+      <form name="DeleteProject" id="projectForm" novalidate>
+        <div class='table-responsive' ng-app="">
+          <table class="table table-bordered">
+            <tr>
+              <th rowspan="2">Project</th>
+              <td>
+                  {{jsonData.Project1}}
+              </td>
+            </tr>
+            <tr>
+              <td>
+            <tr>
+              <td>Start date: </td>
+              <td> {{jsonData.Start_Date |date:'mediumDate'}}</td>
+            </tr>
+            <tr>
+              <td>
+                 End Date : 
+              </td>
+              <td>
+                  {{jsonData.End_Date |date:'mediumDate'}}
+              </td>
+            </tr>
+  
+            </td>
+            </tr>
+            <tr>
+              <th>Priority</th>
+              <td>
+                  {{jsonData.Priority}}  
+            </td>
+            </tr>
+            <tr *ngIf="!responseData === true;">
+                <td colspan="2" class="text-center"><button id="btnAddTask" type="submit" (click)='DeleteProject(jsonData)' class="btn btn-default">Delete Project</button> | <button
+                    id="btnReset" type="submit" class="btn btn-default" [routerLink]="['/projects']" >Cancel</button></td>
+              </tr>
+              <tr *ngIf="responseData === true;">
+                  <td colspan="2" class="text-center">
+                  <button id="btnReset" type="submit" class="btn btn-default" [routerLink]="['/projects']" >Back to Projects</button></td>
+                </tr>
+          </table>
+        </div>
+      </form>
+      <div *ngIf="responseData === true;">
+        <div class="alert alert-success alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> Project deleted successfully !!!
+        </div>
+      </div>
+  
+    </div>
+  </div>

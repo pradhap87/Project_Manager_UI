@@ -1,0 +1,84 @@
+<div class="row">
+    <h1 class="page-header">Add User</h1>
+  
+  </div>
+  <div class="row">
+    <div class="col-lg-5">
+      <form name="AddUser"  id="userForm" novalidate>
+        <div class='table-responsive' ng-app="">
+          <table class="table table-bordered">
+            <tr>
+              <th>First Name</th>
+              <td>
+                <input type="text" [(ngModel)]="firstName" class="form-control" name="First_Name" required>
+              </td>
+            </tr>          
+            <tr>
+              <th>Last Name</th>
+              <td>
+                <input type="text" [(ngModel)]="lastName" class="form-control" name="last_Name" required>
+              </td>
+            </tr>         
+            <tr>
+              <th>Employee Id</th>
+              <td>
+                <input type="number" [(ngModel)]="empId" class="form-control" name="emp_Id" required>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" class="text-center"><button id="btnAddTask" type="submit" (click)='AddUser()' class="btn btn-default">Add User</button> | <button
+                  id="btnReset" type="submit" class="btn btn-default" (click)="reset()">Reset</button></td>
+            </tr>
+          </table>
+        </div>
+      </form>
+      <div *ngIf="responseData === true;">
+          <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> New User added successfully !!!
+          </div>
+        </div>
+    </div>
+  </div>
+    
+  <div class="row" *ngIf="jsonData">
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Users
+            </div>
+          <div id="UsersTable" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+            <div class="row">
+              <div class="col-sm-12">
+    
+                <div class="table-responsive shadow">
+                  <table datatable class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Employee Id</th>
+                        <th>#</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let user of jsonData">
+                        <td>{{user.First_Name}}</td>
+                        <td>{{user.Last_Name}}</td>
+                        <td>{{user.Employee_ID}}</td>
+                        <td>
+                          <button id="btnEdit" type="submit" class="btn btn-default" [routerLink]="['/edituser']"
+                            [queryParams]="{UserId: user.User_ID}"><i class="text-primary fa fa-edit"></i> Edit</button> |
+                          <button id="btnDelete" type="submit" class="btn btn-default" [routerLink]="['/deleteuser']"
+                            [queryParams]="{UserId: user.User_ID}"><i class="text-danger fa fa-archive"></i> Delete User</button>
+                        </td>
+                      </tr>
+    
+                    </tbody>
+                  </table>
+                </div>       
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

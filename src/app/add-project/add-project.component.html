@@ -1,0 +1,145 @@
+<div class="row">
+  <h1 class="page-header">Add Project</h1>
+
+</div>
+<div class="row" *ngIf ="jsonData">
+  <div class="col-lg-5">
+    <form name="AddProject" id="projectForm" novalidate>
+      <div class='table-responsive' ng-app="">
+        <table class="table table-bordered">
+          <tr>
+            <th rowspan="2">Project</th>
+            <td>
+              <input type="text" [(ngModel)]="projectName" class="form-control" name="Project_Name" required
+                placeholder="Project Name">
+            </td>
+          </tr>
+          <tr>
+            <td>
+          <tr>
+            <td>Start date</td>
+            <td>End date</td>
+          </tr>
+          <tr>
+            <td>
+              <input type="date" [(ngModel)]="startDate" class="form-control" name="Start_Date" required>
+            </td>
+            <td>
+              <input type="date" [(ngModel)]="endDate" class="form-control" name="End_Date" required>              
+            </td>
+          </tr>
+
+          </td>
+          </tr>
+          <tr>
+            <th>Priority</th>
+            <td item-width="100%">
+          <tr>
+            <td>0</td>
+            <td>30</td>
+          </tr>
+          <tr>
+            <td>
+              <input id="Priority" type="range" min="0" max="30" [(ngModel)]="taskPriority" class="form-control" name="Priority"
+                required>
+            </td>
+          </tr>
+
+          </td>
+          </tr>
+          <tr>
+            <th>Manager</th>
+            <td>                            
+              <select [(ngModel)]="managerId" name="Manager" class="form-control" required>
+                    <option *ngFor="let item of jsonData" [ngValue]="item.User_ID">{{item.First_Name}} {{item.Last_Name}}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-center"><button id="btnAddTask" type="submit" (click)='AddProject()' class="btn btn-default">Add
+                Project</button> | <button id="btnReset" type="submit" class="btn btn-default" (click)="reset()">Reset</button></td>
+          </tr>
+        </table>
+      </div>
+    </form>
+    <div *ngIf="responseData === true;">
+      <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> New Project added
+        successfully !!!
+      </div>
+    </div>
+    <div *ngIf="validation === false;">
+        <div class="alert alert-danger alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> All fields are mandatory
+        </div>
+      </div>
+      <div *ngIf="dateValidation === false;">
+          <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> End Date must be greater than or equal to Start Date
+          </div>
+        </div>
+  </div>
+</div>
+
+<div class="row" *ngIf ="!jsonData">
+  <div class="alert alert-info alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> Please wait Loading the Project Data
+    </div>
+    <div class="alert alert-info alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> If it's taking long time then there is no Projects Avalable in the system.
+      </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+      <div class="panel panel-default" *ngIf ="projectData">
+          <div class="panel-heading">
+              Projects
+          </div>
+        <div id="ProjectsTable" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+          <div class="row">
+            <div class="col-sm-12">
+  
+              <div class="table-responsive shadow">
+                <table datatable class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Project Name</th>
+                      <th>Start Date</th>
+                      <th>End Date</th>
+                      <th>Priority</th>   
+                      <th>Manager</th>                   
+                      <th>#</th>        
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let project of projectData">
+                      <td>{{project.Project1}}</td>
+                      <td>{{project.Start_Date |date:'mediumDate'}}</td>
+                      <td>{{project.End_Date |date:'mediumDate'}}</td>
+                      <td>{{project.Priority}}</td>
+                      <td>
+                          <div *ngFor="let item of jsonData">
+                              <div *ngIf="project.Manager_Id == item.User_ID">
+                                {{item.First_Name}} {{item.Last_Name}}
+                              </div>
+                            </div>
+                      </td>
+                      <td>
+                        <button id="btnEdit" type="submit" class="btn btn-default" [routerLink]="['/editproject']"
+                          [queryParams]="{ProjectId: project.Project_ID}"><i class="text-primary fa fa-edit"></i> Edit</button> |
+                        <button id="btnDelete" type="submit" class="btn btn-default" [routerLink]="['/deleteproject']"
+                          [queryParams]="{ProjectId: project.Project_ID}"><i class="text-danger fa fa-archive"></i> Delete Project</button>
+                      </td>
+                    </tr>
+  
+                  </tbody>
+                </table>
+              </div> 
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
